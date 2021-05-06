@@ -1,0 +1,138 @@
+<button nz-button (click)="openEdit()">
+  <i nz-icon nzType="edit"></i>Edit
+</button>
+<nz-modal
+  [(nzVisible)]="isVisible"
+  nzTitle="Update Employee Details"
+  (nzOnCancel)="isVisible = false"
+  [nzContent]="modalContent"
+  [nzFooter]="modalFooter"
+  nzContent
+>
+  <ng-template #modalContent>
+    <form nz-form [formGroup]="employeeForm" nzLayout="vertical">
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            readonly
+            formControlName="id"
+            [value]="details.id"
+          />
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            formControlName="firstName"
+            placeholder="First Name"
+          />
+          <span
+            *ngIf="isDirty && employeeForm.get('firstName')?.errors?.required"
+            class="text-danger"
+            >Enter a valid first name</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            formControlName="lastName"
+            placeholder="Last Name"
+          />
+          <span
+            *ngIf="isDirty && employeeForm.get('lastName')?.errors?.required"
+            class="text-danger"
+            >Enter a valid last name</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            formControlName="department"
+            placeholder="Department"
+          />
+          <span
+            *ngIf="isDirty && employeeForm.get('department')?.errors?.required"
+            class="text-danger"
+            >Enter a valid department</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            formControlName="designation"
+            placeholder="Designation"
+          />
+          <span
+            *ngIf="isDirty && employeeForm.get('designation')?.errors?.required"
+            class="text-danger"
+            >Enter a valid designation</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            type="number"
+            nzErrorTip="Enter a valid first name"
+            formControlName="salary"
+            placeholder="Salary"
+          />
+          <span
+            *ngIf="employeeForm.get('salary')?.errors?.required"
+            class="text-danger"
+            >Enter a valid amount for salary</span
+          >
+          <span
+            *ngIf="isDirty && employeeForm.get('salary')?.errors?.min"
+            class="text-danger"
+            >Salary must be greater than 0</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            type="email"
+            nzErrorTip="Enter a valid email"
+            formControlName="email"
+            placeholder="Email ID"
+          />
+          <span
+            *ngIf="isDirty && employeeForm.get('email')?.errors?.email"
+            class="text-danger"
+            >Enter a valid email</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-template>
+  <<ng-template #modalFooter>
+    <button nz-button (click)="isVisible = false">Cancel</button>
+    <button
+      nz-button
+      type="submit"
+      nzType="primary"
+      (click)="submitUpdate()"
+      [nzLoading]="isLoading"
+    >
+      Update Details
+    </button>
+  </ng-template>
+</nz-modal>

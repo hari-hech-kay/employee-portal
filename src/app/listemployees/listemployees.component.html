@@ -1,0 +1,72 @@
+<div>
+  <div class="jumbotron" nz-row nzJustify="space-between" nzAlign="middle">
+    <div nz-col>
+      <h1 nz-typography>Infinity Studios Limited</h1>
+      <h3 class="m-1" nz-typography>Employee Portal</h3>
+    </div>
+    <div nz-col>
+      <button
+        nz-button
+        nzType="primary"
+        nzSize="large"
+        nzShape="round"
+        routerLink="/add-new-employee"
+      >
+        Add New Employee
+      </button>
+    </div>
+  </div>
+  <div nz-row nzJustify="space-around" nzAlign="top">
+    <div nz-col nzFlex="4">
+      <nz-table
+        #employeeTable
+        [nzShowPagination]="false"
+        [nzLoading]="tableLoading"
+        [nzData]="employees"
+      >
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Designation</th>
+            <th>Salary</th>
+            <th>Email</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let i of employeeTable.data">
+            <td>{{ i.id }}</td>
+            <td>{{ i.firstName }} {{ i.lastName }}</td>
+            <td>{{ i.department }}</td>
+            <td>{{ i.designation }}</td>
+            <td>{{ i.salary }}</td>
+            <td>{{ i.email }}</td>
+            <td>
+              <app-updateemployee [details]="i"></app-updateemployee>
+              <nz-divider nzType="vertical"></nz-divider>
+              <button
+                nz-button
+                [nzLoading]="isLoading"
+                nz-popconfirm
+                nzPopconfirmTitle="Remove this employee?"
+                nzPopconfirmPlacement="bottom"
+                nzCancelText="Cancel"
+                nzOkText="Confirm"
+                (nzOnConfirm)="removeEmployee(i)"
+                nzDanger
+                nzType="primary"
+              >
+                Remove
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
+    <div nz-col nzFlex="2">
+      <img src="../../assets/working.png" width="400px" height="400px" />
+    </div>
+  </div>
+</div>

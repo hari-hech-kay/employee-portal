@@ -1,0 +1,126 @@
+<div class="jumbotron" nzJustify="space-between" nzAlign="top">
+  <h1 nz-typography>Infinity Studios Limited</h1>
+  <h3 class="m-1" nz-typography>Add New Employee to the Portal</h3>
+</div>
+<div nz-row nzAlign="middle" nzJustify="space-around">
+  <div nz-col nzSpan="7">
+    <form
+      nz-form
+      [formGroup]="employeeForm"
+      (ngSubmit)="submitForm()"
+      nzLayout="vertical"
+    >
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            formControlName="firstName"
+            placeholder="First Name"
+          />
+          <span
+            *ngIf="isDirty && employeeForm.get('firstName')?.errors?.required"
+            class="text-danger"
+            >Enter a valid first name</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            formControlName="lastName"
+            placeholder="Last Name"
+          />
+          <span
+            *ngIf="isDirty && employeeForm.get('lastName')?.errors?.required"
+            class="text-danger"
+            >Enter a valid last name</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            formControlName="department"
+            placeholder="Department"
+          />
+          <span
+            *ngIf="isDirty && employeeForm.get('department')?.errors?.required"
+            class="text-danger"
+            >Enter a valid department</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            formControlName="designation"
+            placeholder="Designation"
+          />
+          <span
+            *ngIf="isDirty && employeeForm.get('designation')?.errors?.required"
+            class="text-danger"
+            >Enter a valid designation</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            type="number"
+            nzErrorTip="Enter a valid first name"
+            formControlName="salary"
+            placeholder="Salary"
+          />
+          <span
+            *ngIf="employeeForm.get('salary')?.errors?.required"
+            class="text-danger"
+            >Enter a valid amount for salary</span
+          >
+          <span
+            *ngIf="isDirty && employeeForm.get('salary')?.errors?.min"
+            class="text-danger"
+            >Salary must be greater than 0</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            type="email"
+            nzErrorTip="Enter a valid email"
+            formControlName="email"
+            placeholder="Email ID"
+          />
+          <span
+            *ngIf="isDirty && employeeForm.get('email')?.errors?.email"
+            class="text-danger"
+            >Enter a valid email</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <button
+        nz-button
+        [nzLoading]="isLoading"
+        class="m-2"
+        nzType="primary"
+        type="submit"
+      >
+        Create Employee
+      </button>
+    </form>
+  </div>
+  <div nz-col nzSpan="7">
+    <img src="../../assets/working.png" width="400px" height="400px" />
+  </div>
+</div>
