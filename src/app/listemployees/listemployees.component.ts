@@ -25,6 +25,7 @@ export class ListemployeesComponent implements OnInit {
       this.isLoading = false;
       if (result['deleted']) {
         this.employees.splice(this.employees.indexOf(emp), 1);
+        this.employees = [...this.employees];
         console.log(this.employees);
 
         this.notification.success(
