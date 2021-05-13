@@ -7,7 +7,7 @@ import { Employee } from '../models/Employee';
   providedIn: 'root',
 })
 export class EmployeeService {
-  private API_URL = 'http://localhost:8080/api';
+  private API_URL = https://employee-portal-backend.herokuapp.com;
   constructor(private httpsClient: HttpClient) {}
 
   public listEmployees() {
