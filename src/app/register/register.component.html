@@ -1,6 +1,6 @@
 <div class="jumbotron" nzJustify="space-between" nzAlign="top">
   <h1 nz-typography>Infinity Studios Limited</h1>
-  <h3 class="m-1" nz-typography>Add New Employee to the Portal</h3>
+  <h3 class="m-1" nz-typography>New Employee Registration nz-dropdown</h3>
 </div>
 <div nz-row nzAlign="middle" nzJustify="space-around">
   <div nz-col nzSpan="7">
@@ -10,6 +10,64 @@
       (ngSubmit)="submitForm()"
       nzLayout="vertical"
     >
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            formControlName="username"
+            placeholder="   Username"
+          />
+          <span
+            *ngIf="isDirty && employeeForm.get('username')?.errors?.required"
+            class="text-danger"
+            >Username must be atleast 4 characters long</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            type="password"
+            formControlName="password"
+            placeholder="Password"
+          />
+          <span
+            *ngIf="isDirty && employeeForm.get('password')?.errors?.required"
+            class="text-danger"
+            >Password must be atleast 6 characters long</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-control [nzSpan]="24">
+        <label>Select Role</label>
+        <br />
+        <input
+          type="radio"
+          formControlName="roles"
+          value="ADMIN"
+          id="btnradio1"
+          autocomplete="off"
+        />
+        <label class="" for="btnradio1">ADMIN</label>
+        <br />
+        <input
+          type="radio"
+          formControlName="roles"
+          value="EMPLOYEE"
+          id="btnradio2"
+          autocomplete="off"
+        />
+        <label for="btnradio2">EMPLOYEE</label>
+
+        <span
+          *ngIf="isDirty && employeeForm.get('roles')?.errors?.required"
+          class="text-danger"
+          >Select a role</span
+        >
+      </nz-form-control>
       <nz-form-item class="form-group">
         <nz-form-control [nzSpan]="24">
           <input
@@ -116,7 +174,7 @@
         nzType="primary"
         type="submit"
       >
-        Create Employee
+        Create Account
       </button>
     </form>
   </div>

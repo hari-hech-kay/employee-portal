@@ -1,0 +1,72 @@
+<div class="jumbotron" nz-row nzJustify="space-between" nzAlign="middle">
+  <div nz-col>
+    <h1 nz-typography>Infinity Studios Limited</h1>
+    <h3 class="m-1" nz-typography>Employee Portal</h3>
+  </div>
+  <div nz-row nzAlign="middle">
+    <div nz-col>
+      <button
+        nz-button
+        nzType="primary"
+        nzSize="default"
+        routerLink="/registration"
+      >
+        New User Registration
+      </button>
+    </div>
+  </div>
+</div>
+<div nz-row nzAlign="middle" nzJustify="space-around">
+  <div nz-col nzSpan="7">
+    <form
+      nz-form
+      [formGroup]="loginForm"
+      (ngSubmit)="submitForm()"
+      nzLayout="vertical"
+    >
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            formControlName="username"
+            placeholder="   Username"
+          />
+          <span
+            *ngIf="isDirty && loginForm.get('username')?.errors?.required"
+            class="text-danger"
+            >Username is required</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item class="form-group">
+        <nz-form-control [nzSpan]="24">
+          <input
+            class="form-control"
+            nz-input
+            type="password"
+            formControlName="password"
+            placeholder="Password"
+          />
+          <span
+            *ngIf="isDirty && loginForm.get('password')?.errors?.required"
+            class="text-danger"
+            >Password is required</span
+          >
+        </nz-form-control>
+      </nz-form-item>
+      <button
+        nz-button
+        [nzLoading]="isLoading"
+        class="m-2"
+        nzType="primary"
+        type="submit"
+      >
+        Login
+      </button>
+    </form>
+  </div>
+  <div nz-col nzSpan="7">
+    <img src="../../assets/working.png" width="400px" height="400px" />
+  </div>
+</div>

@@ -11,17 +11,33 @@
 >
   <ng-template #modalContent>
     <form nz-form [formGroup]="employeeForm" nzLayout="vertical">
-      <nz-form-item class="form-group">
-        <nz-form-control [nzSpan]="24">
-          <input
-            class="form-control"
-            nz-input
-            readonly
-            formControlName="id"
-            [value]="details.id"
-          />
-        </nz-form-control>
-      </nz-form-item>
+      <!-- <nz-form-control [nzSpan]="24">
+        <label>Select Role</label>
+        <br />
+        <input
+          type="radio"
+          formControlName="roles"
+          value="ADMIN"
+          id="btnradio1"
+          autocomplete="off"
+        />
+        <label class="" for="btnradio1">ADMIN</label>
+        <br />
+        <input
+          type="radio"
+          formControlName="roles"
+          value="EMPLOYEE"
+          id="btnradio2"
+          autocomplete="off"
+        />
+        <label for="btnradio2">EMPLOYEE</label>
+
+        <span
+          *ngIf="isDirty && employeeForm.get('roles')?.errors?.required"
+          class="text-danger"
+          >Select a role</span
+        >
+      </nz-form-control> -->
       <nz-form-item class="form-group">
         <nz-form-control [nzSpan]="24">
           <input

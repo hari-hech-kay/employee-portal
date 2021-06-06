@@ -1,5 +1,5 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Employee } from '../models/Employee';
 
@@ -7,22 +7,23 @@ import { Employee } from '../models/Employee';
   providedIn: 'root',
 })
 export class EmployeeService {
-  private API_URL = 'https://employee-portal-backend.herokuapp.com/api';
+  private API_URL = 'http://localhost:8080/api';
   constructor(private httpsClient: HttpClient) {}
 
-  public listEmployees() {
-    return this.httpsClient.get(this.API_URL + '/employees');
+  public listEmployees(): Observable<Employee[]> {
+    return this.httpsClient.get<Employee[]>(this.API_URL + '/employees');
   }
 
-  public updateEmployee(id: number, details: Employee) {
-    return this.httpsClient.put(this.API_URL + '/employees/' + id, details);
+  public updateEmployee(id: number, details: any): Observable<Employee> {
+    console.log(details);
+
+    return this.httpsClient.put<Employee>(
+      this.API_URL + '/employees/' + id,
+      details
+    );
   }
 
-  public removeEmployee(id: number) {
-    return this.httpsClient.delete(this.API_URL + '/employees/' + id);
-  }
-
-  public addEmployee(details: Employee) {
-    return this.httpsClient.post(this.API_URL + '/employees/', details);
+  public removeEmployee(id: number): Observable<void> {
+    return this.httpsClient.delete<void>(this.API_URL + '/employees/' + id);
   }
 }

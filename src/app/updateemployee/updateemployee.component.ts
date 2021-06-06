@@ -1,8 +1,9 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
-import { EmployeeService } from '../services/employee.service';
-import { Employee } from '../models/Employee';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
+import { Employee } from '../models/Employee';
+import { EmployeeService } from '../services/employee.service';
 @Component({
   selector: 'app-updateemployee',
   templateUrl: './updateemployee.component.html',
@@ -12,13 +13,19 @@ export class UpdateemployeeComponent implements OnInit {
   @Input() details: Employee = {} as Employee;
 
   employeeForm: FormGroup = new FormGroup({
-    id: new FormControl(null),
-    firstName: new FormControl(null, Validators.required),
-    lastName: new FormControl(null, Validators.required),
-    department: new FormControl(null, Validators.required),
-    designation: new FormControl(null, Validators.required),
-    salary: new FormControl(0, [Validators.required, Validators.min(0)]),
-    email: new FormControl(null, [Validators.required, Validators.email]),
+    // roles: new FormControl(null, Validators.required),
+    firstName: new FormControl(this.details.firstName, Validators.required),
+    lastName: new FormControl(this.details.lastName, Validators.required),
+    department: new FormControl(this.details.department, Validators.required),
+    designation: new FormControl(this.details.designation, Validators.required),
+    salary: new FormControl(this.details.salary, [
+      Validators.required,
+      Validators.min(0),
+    ]),
+    email: new FormControl(this.details.email, [
+      Validators.required,
+      Validators.email,
+    ]),
   });
 
   isLoading: boolean = false;
@@ -42,26 +49,36 @@ export class UpdateemployeeComponent implements OnInit {
       this.updateEmployee(this.details.id, this.employeeForm.value);
     }
   }
-  updateEmployee(id: number, employeeDetails: Employee) {
-    this.employeeService
-      .updateEmployee(id, employeeDetails)
-      .subscribe((result: any) => {
+  updateEmployee(id: number, employeeDetails: any) {
+    this.employeeService.updateEmployee(id, employeeDetails).subscribe(
+      (result: Employee) => {
         console.log(result);
         this.isLoading = false;
         this.isVisible = false;
-        if (result['id'] !== null)
-          this.notification.success(
-            `${result['id']} - ${employeeDetails.firstName} ${employeeDetails.lastName}`,
-            'Employee details updated!'
-          );
-        else
-          this.notification.success(
-            'Failed to Update',
-            'Something went wrong!'
-          );
-      });
+        this.notification.success(
+          `${result['id']} - ${employeeDetails.firstName} ${employeeDetails.lastName}`,
+          'Employee details updated!'
+        );
+      },
+      (error: HttpErrorResponse) => {
+        this.isLoading = false;
+        this.notification.success(
+          'Failed to Update',
+          `${error.status}: ${error.error.error} ${error.error.message}`
+        );
+      }
+    );
   }
   ngOnInit(): void {
-    this.employeeForm.setValue(this.details);
+    const data = {
+      //roles: this.details.roles[0].name,
+      firstName: this.details.firstName,
+      lastName: this.details.lastName,
+      department: this.details.department,
+      designation: this.details.designation,
+      salary: this.details.salary,
+      email: this.details.email,
+    };
+    this.employeeForm.setValue(data);
   }
 }
