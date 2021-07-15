@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 import { AuthService } from '../services/auth.service';
 
@@ -35,7 +36,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private router: Router
   ) {}
 
   submitForm() {
@@ -58,6 +60,7 @@ export class RegisterComponent implements OnInit {
           `${employeeDetails.firstName} ${employeeDetails.lastName}`,
           response
         );
+        this.router.navigate(['/login']);
       },
       (error: HttpErrorResponse) => {
         this.isLoading = false;
